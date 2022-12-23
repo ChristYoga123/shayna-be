@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ProductGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +58,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('pages.products.show', [
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -92,6 +100,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        ProductGallery::where('product_id', $product->id)->delete();
         return redirect()->route('products.index')->with('success', 'Data berhasil dihapus');
     }
 }
