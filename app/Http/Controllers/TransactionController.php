@@ -77,7 +77,13 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $request->validate([
+            "transaction_status" => 'required|in:Pending,Gagal,Sukses'
+        ]);
+        $transaction->transaction_status = $request->transaction_status;
+        $transaction->save();
+
+        return redirect()->route('transactions.index')->with('success', 'Data berhasil diubah');
     }
 
     /**
