@@ -27,6 +27,14 @@
 
 
 <script>
+    ClassicEditor
+    .create( document.querySelector( '.ckeditor' ) )
+    .then( editor => {
+            console.log( editor );
+    } )
+    .catch( error => {
+            console.error( error );
+    } );
     jQuery(document).ready(function($){
         $('#transaction-modal').on('show.bs.modal', function(e){
             var button = $(e.relatedTarget);
