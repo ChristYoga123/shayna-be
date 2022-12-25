@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('address');
             $table->integer('transaction_total');
-            $table->enum('transaction_status', ['Pending', 'Gagal', 'Sukses']);
+            $table->enum('transaction_status', ['Pending', 'Gagal', 'Sukses'])->default('Pending');
             $table->timestamps();
             $table->softDeletes();
         });
